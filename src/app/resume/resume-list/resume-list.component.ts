@@ -32,4 +32,12 @@ export class ResumeListComponent implements OnInit{
         this.pageTitle = 'Resume List: ' + message;
     }
 
+    onTagClicked(tag: string): void {
+        this.listFilter = tag;
+    }
+
+    clearFilter(): void {
+        this.listFilter = "";
+    }
+
 }

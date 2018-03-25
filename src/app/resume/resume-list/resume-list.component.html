@@ -6,6 +6,7 @@
         <div class="row">
             <div class="col-md-6">Filter by:
                 <input type="text" [(ngModel)]="listFilter"/>
+                <span class="glyphicon glyphicon-remove" (click)="clearFilter()"></span>
             </div>
         </div>
         <div class="row">
@@ -48,7 +49,7 @@
                         <td>{{resume.email | convertToSpaces:'-' | lowercase }}</td>
                         <td>{{resume.createdAt | date }}</td>
                         <td>
-                            <span class="label label-primary" style="margin: 5px" *ngFor="let tag of resume.tags">{{tag}}</span>
+                            <span class="label label-primary" style="margin: 5px" *ngFor="let tag of resume.tags" (click)="onTagClicked(tag)">{{tag}}</span>
                         </td>
                         <td>
                             <app-star [rating]="resume.starRating"

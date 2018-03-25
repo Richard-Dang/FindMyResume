@@ -6,9 +6,22 @@ import {IResume} from './resume';
 })
 export class ResumeFilterPipe implements PipeTransform {
 
-    transform(value: IResume[], filterBy: string): IResume[] {
+    transform(resumes: IResume[], filterBy: string): IResume[] {
         filterBy = filterBy ? filterBy.toLocaleLowerCase() : null;
-        return filterBy ? value.filter((resume: IResume) =>
-            resume.author.toLocaleLowerCase().indexOf(filterBy) !== -1) : value;
+        return filterBy ? resumes.filter((resume: IResume) => this.filterResumes(resume, filterBy)) : resumes;
+    }
+
+    private filterResumes(resume: IResume, filterBy: string) {
+        let tagFound = false;
+        resume.tags.forEach((tag) => {
+            if(tag.toLocaleLowerCase().indexOf(filterBy) !== -1) {
+                tagFound = true;
+            }
+        });
+
+        let matchFound = resume.author.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+            resume.email.toLocaleLowerCase().indexOf(filterBy) !== -1 || tagFound;
+
+        return matchFound;
     }
 }
