@@ -6,8 +6,10 @@ import com.example.resumelibrary.repository.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,8 +27,14 @@ public class ResumeController {
     }
 
     // Create a new resume
-    @PostMapping("/resumes")
-    public Resume createResume(@Valid @RequestBody Resume resume) {
+    @PostMapping(path ="/resumes", consumes = "multipart/form-data")
+    public Resume createResume(@RequestPart("uploadFile") MultipartFile file, @RequestPart("resume") Resume resume) {
+        try{
+            resume.setFile(file.getBytes());
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
         return resumeRepository.save(resume);
     }
 
@@ -48,7 +56,7 @@ public class ResumeController {
         resume.setAuthor(resumeDetails.getAuthor());
         resume.setEmail(resumeDetails.getEmail());
         resume.setDescription(resumeDetails.getDescription());
-        resume.setPdfUrl(resumeDetails.getPdfUrl());
+        resume.setFile(resumeDetails.getFile());
         resume.setStarRating(resumeDetails.getStarRating());
         resume.setTags(resumeDetails.getTags());
 

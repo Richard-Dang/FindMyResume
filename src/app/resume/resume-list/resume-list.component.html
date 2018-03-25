@@ -38,7 +38,7 @@
                     <tr *ngFor="let resume of resumes | resumeFilter:listFilter">
                         <td>
                             <img *ngIf="showImage"
-                                 [src]="resume.pdfUrl"
+                                 [src]="resume.file"
                                 [title]="resume.author | uppercase "
                                 [style.width.px]="imageWidth"
                                 [style.margin.px]="imageMargin">

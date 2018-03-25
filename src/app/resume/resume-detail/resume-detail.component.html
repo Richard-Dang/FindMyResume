@@ -38,11 +38,11 @@
                     <div class="col-md-6">{{resume.tags}}</div>
                 </div>
             </div>
-            <div class="col-md-6" *ngIf="resume.pdfUrl">
+            <div class="col-md-6" *ngIf="resume.file">
                 <img class="center-block img-responsive"
                      [style.width.px]="150"
                      [style.margin.px]="2"
-                     [src]="resume.pdfUrl"
+                     [src]="resume.file"
                      [title]="resume.author">
             </div>
         </div>

@@ -37,16 +37,21 @@ export class ResumeService {
             .catch(this.handleError);
     }
 
-    saveResume(resume: IResume): Observable<IResume> {
+    saveResume(resume: IResume, formData: FormData): Observable<IResume> {
         if(resume.id === 0){
-            return this.createResume(resume);
+            return this.createResume(resume, formData);
         }
+        //TODO: update to post formData
         return this.updateResume(resume);
     }
     
-    private createResume(resume: IResume): Observable<IResume> {
+    private createResume(resume: IResume, formData: FormData): Observable<IResume> {
         resume.id = undefined;
-        return this.http.post(this.resumeUrl, resume)
+        formData.append('resume', new Blob([JSON.stringify(resume)],
+            {
+                type: "application/json"
+            }));
+        return this.http.post(this.resumeUrl, formData)
             .do(data => this.httpLog('createResume', data))
             .catch(this.handleError);
     }
@@ -80,7 +85,7 @@ export class ResumeService {
             createdAt: null,
             description: null,
             starRating: null,
-            pdfUrl: null
+            file: null
         };
     }
 }

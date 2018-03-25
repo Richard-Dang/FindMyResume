@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "resumes")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
-public class Resume implements Serializable{
+public class Resume implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,7 +34,9 @@ public class Resume implements Serializable{
 
     private int starRating;
 
-    private String pdfUrl;
+    @Lob
+    @Column(length=500000)
+    private byte[] file;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -94,12 +96,12 @@ public class Resume implements Serializable{
         this.starRating = starRating;
     }
 
-    public String getPdfUrl() {
-        return pdfUrl;
+    public byte[] getFile() {
+        return file;
     }
 
-    public void setPdfUrl(String pdfUrl) {
-        this.pdfUrl = pdfUrl;
+    public void setFile(byte[] file) {
+        this.file = file;
     }
 
     public Date getCreatedAt() {
