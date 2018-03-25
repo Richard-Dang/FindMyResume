@@ -6,5 +6,7 @@ export interface IResume {
     createdAt: string;
     description: string;
     starRating: number;
-    file: File;
+    file: string;
+    pdfData: any;
+    pdfUrl;
 }

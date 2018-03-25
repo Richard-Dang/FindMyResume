@@ -17,7 +17,7 @@ export class ResumeService {
     }
 
     getResumes(): Observable<IResume[]> {
-        return this.http.get<IResume[]>(this.resumeUrl)
+        return this.http.get(this.resumeUrl)
             .do(data => this.httpLog(`getResumes`, data))
             .catch(this.handleError);
     }
@@ -85,7 +85,9 @@ export class ResumeService {
             createdAt: null,
             description: null,
             starRating: null,
-            file: null
+            file: null,
+            pdfData: null,
+            pdfUrl: null
         };
     }
 }

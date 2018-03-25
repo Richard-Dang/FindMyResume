@@ -8,11 +8,13 @@ import {SharedModule} from './../shared/shared.module';
 import {ResumeEditComponent} from './resume-edit/resume-edit.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {ResumeFilterPipe} from "./resume-filter.pipe";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
     imports: [
         ReactiveFormsModule,
         SharedModule,
+        PdfViewerModule,
         RouterModule.forChild([
           {path: 'resumes', component: ResumeListComponent},
           {path: 'resumes/:id',

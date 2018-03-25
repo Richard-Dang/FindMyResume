@@ -37,11 +37,16 @@
                 <tbody>
                     <tr *ngFor="let resume of resumes | resumeFilter:listFilter">
                         <td>
-                            <img *ngIf="showImage"
-                                 [src]="resume.file"
-                                [title]="resume.author | uppercase "
-                                [style.width.px]="imageWidth"
-                                [style.margin.px]="imageMargin">
+                            <pdf-viewer *ngIf="showImage"
+                                        [src]="resume.pdfUrl"
+                                        [title]="resume.author"
+                                        [show-all]="false"
+                                        [page]="1"
+                                        [original-size]="false"
+                                        [autoresize]="true"
+                                        (click)="openPdf(resume.id)"
+                                        style="display: block; width: 300px; max-width: 300px">
+                            </pdf-viewer>
                         </td>
                         <td><a [routerLink]="['/resumes', resume.id]">
                             {{resume.author}}</a>
@@ -58,9 +63,15 @@
                         </td>
                         <td>
                             <a class="btn btn-primary"
-                            [routerLink]="['/resumeEdit', resume.id]">
+                            [routerLink]="['/resumeEdit', resume.id]"
+                            style="margin-right:5px;">
                                 Edit</a>
+                            <div class="btn btn-primary"
+                                 (click)="downloadPdf(resume.id)">
+                                Download
+                            </div>
                         </td>
+
                     </tr>
                 </tbody>
             </table>

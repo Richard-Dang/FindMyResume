@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {IResume} from "../resume";
 import {ResumeService} from "../resume.service";
+import * as FileSaver from "file-saver";
 
 @Component({
     templateUrl: './resume-list.component.html',
@@ -24,8 +25,36 @@ export class ResumeListComponent implements OnInit{
 
     ngOnInit(): void {
         this.resumeService.getResumes()
-            .subscribe(products => this.resumes = products,
-                    error => this.errorMessage = <any>error);
+            .subscribe(resumes => {
+                this.resumes = resumes;
+
+                this.resumes.forEach((resume) => {
+                    fetch("data:application/pdf;base64," + resume.file)
+                        .then((resp) => {
+                            return resp.blob()
+                        })
+                        .then((blob) => {
+                            resume.pdfData = blob;
+                            resume.pdfUrl = URL.createObjectURL(resume.pdfData);
+                        });
+                })
+
+
+                }, error => this.errorMessage = <any>error);
+    }
+
+    openPdf(id: number): void {
+        let resume = this.resumes.find((resume) => {
+            return resume.id === id;
+        });
+        window.open(resume.pdfUrl);
+    }
+
+    downloadPdf(id: number): void {
+        let resume = this.resumes.find((resume) => {
+            return resume.id === id;
+        });
+        FileSaver.saveAs(resume.pdfData, `${resume.author}.pdf`);
     }
 
     onRatingClicked(message: string): void {

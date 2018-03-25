@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class ResumeController {
 
@@ -22,7 +22,7 @@ public class ResumeController {
 
     // Get All resume
     @GetMapping("/resumes")
-    public List<Resume> getAllNotes() {
+    public List<Resume> getAllResumes() {
         return resumeRepository.findAll();
     }
 
