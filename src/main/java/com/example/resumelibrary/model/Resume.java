@@ -1,12 +1,15 @@
 package com.example.resumelibrary.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -24,7 +27,8 @@ public class Resume implements Serializable{
     @NotBlank
     private String email;
 
-    private String tags;
+    @ElementCollection
+    private List<String> tags;
 
     private String description;
 
@@ -66,11 +70,11 @@ public class Resume implements Serializable{
         this.email = email;
     }
 
-    public String getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 

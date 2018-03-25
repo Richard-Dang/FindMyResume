@@ -46,7 +46,7 @@
                             {{resume.author}}</a>
                         </td>
                         <td>{{resume.email | convertToSpaces:'-' | lowercase }}</td>
-                        <td>{{resume.dateAdded}}</td>
+                        <td>{{resume.createdAt | date }}</td>
                         <td>
                             <span class="label label-primary" style="margin: 5px" *ngFor="let tag of resume.tags">{{tag}}</span>
                         </td>

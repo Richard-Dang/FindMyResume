@@ -3,7 +3,7 @@ export interface IResume {
     author: string;
     email: string;
     tags?: string[];
-    dateAdded: string;
+    createdAt: string;
     description: string;
     starRating: number;
     pdfUrl: string;

@@ -6,10 +6,12 @@ import com.example.resumelibrary.repository.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class ResumeController {
 
@@ -41,10 +43,14 @@ public class ResumeController {
                            @Valid @RequestBody Resume resumeDetails) {
 
         Resume resume = resumeRepository.findById(resumeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", resumeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Resume", "id", resumeId));
 
         resume.setAuthor(resumeDetails.getAuthor());
         resume.setEmail(resumeDetails.getEmail());
+        resume.setDescription(resumeDetails.getDescription());
+        resume.setPdfUrl(resumeDetails.getPdfUrl());
+        resume.setStarRating(resumeDetails.getStarRating());
+        resume.setTags(resumeDetails.getTags());
 
         Resume updatedResume = resumeRepository.save(resume);
         return updatedResume;
@@ -52,8 +58,8 @@ public class ResumeController {
 
 
     // Delete a Note
-
-    @DeleteMapping("/notes/{id}")
+    //TODO: Change to soft delete
+    @DeleteMapping("/resumes/{id}")
     public ResponseEntity<?> deleteResume(@PathVariable(value = "id") Long resumeId) {
         Resume resume = resumeRepository.findById(resumeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Resume", "id", resumeId));

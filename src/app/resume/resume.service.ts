@@ -11,15 +11,14 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class ResumeService {
-    private resumeUrl = './api/resumes/resumes.json';
+    private resumeUrl = 'http://localhost:8080/api/resumes/';
 
-
-    constructor(private _http: HttpClient){
+    constructor(private http: HttpClient){
     }
 
     getResumes(): Observable<IResume[]> {
-        return this._http.get<IResume[]>(this.resumeUrl)
-            .do(data => console.log(`Resume length: ${data.length}\nResumes: ${JSON.stringify(data)}`))
+        return this.http.get<IResume[]>(this.resumeUrl)
+            .do(data => this.httpLog(`getResumes`, data))
             .catch(this.handleError);
     }
 
@@ -27,10 +26,43 @@ export class ResumeService {
         if (id === 0) {
             return Observable.of(this.initializeResume());
         }
-        return this.getResumes()
-            .map((resumes: IResume[]) =>
-                resumes.find((resume: IResume) =>
-                    resume.id === id));
+        return this.http.get(this.resumeUrl + id)
+            .do(data => this.httpLog(`getResume(${id})`, data))
+            .catch(this.handleError);
+    }
+
+    deleteResume(id: number): Observable<IResume> {
+        return this.http.delete(this.resumeUrl + id)
+            .do(data => this.httpLog(`deleteResume(${id})`, data))
+            .catch(this.handleError);
+    }
+
+    saveResume(resume: IResume): Observable<IResume> {
+        if(resume.id === 0){
+            return this.createResume(resume);
+        }
+        return this.updateResume(resume);
+    }
+    
+    private createResume(resume: IResume): Observable<IResume> {
+        resume.id = undefined;
+        return this.http.post(this.resumeUrl, resume)
+            .do(data => this.httpLog('createResume', data))
+            .catch(this.handleError);
+    }
+
+    private updateResume(resume: IResume): Observable<IResume> {
+        return this.http.put(this.resumeUrl + resume.id, resume)
+            .do(data => this.httpLog(`createResume(${resume.id})`, data))
+            .catch(this.handleError);
+    }
+
+    private httpLog(title: string, data: any){
+        let printObj = {
+            length: data.length
+        };
+        printObj[title] = data;
+        console.log(printObj);
     }
 
     private handleError(err: HttpErrorResponse){
@@ -45,7 +77,7 @@ export class ResumeService {
             author: null,
             email: null,
             tags: [''],
-            dateAdded: null,
+            createdAt: null,
             description: null,
             starRating: null,
             pdfUrl: null

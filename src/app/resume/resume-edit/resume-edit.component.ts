@@ -10,7 +10,6 @@ import {NumberValidator} from "../../shared/number-validator";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResumeService} from "../resume.service";
 import {IResume} from "../resume";
-import {RequestOptions} from "@angular/http";
 
 
 @Component({
@@ -47,7 +46,7 @@ export class ResumeEditComponent implements OnInit, AfterViewInit, OnDestroy {
                 maxlength: 'Resume name cannot exceed 50 characters.'
             },
             email: {
-                required: 'Resume code is required.'
+                required: 'Email is required.'
             },
             starRating: {
                 range: 'Rate the resume between 1 (lowest) and 5 (highest).'
@@ -132,31 +131,31 @@ export class ResumeEditComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     deleteResume(): void {
-        // if (this.product.id === 0) {
-        //     this.onSaveComplete();
-        // } else {
-        //     if (confirm(`Really delete the product: ${this.product.productName}?`)){
-        //         this.resumeService.deleteResume(this.product.id)
-        //             .subscribe(
-        //                 () => this.onSaveComplete(),
-        //                 (error: any) => this.errorMessage = <any>error
-        //             );
-        //     }
-        // }
+        if (this.resume.id === 0) {
+            this.onSaveComplete();
+        } else {
+            if (confirm(`Are you sure you want to delete resume by ${this.resume.author}?`)){
+                this.resumeService.deleteResume(this.resume.id)
+                    .subscribe(
+                        () => this.onSaveComplete(),
+                        (error: any) => this.errorMessage = <any>error
+                    );
+            }
+        }
     }
 
     saveResume():void {
-        // if(this.productForm.dirty && this.productForm.valid){
-        //     let p = Object.assign({}, this.product, this.productForm.value);
-        //
-        //     this.resumeService.saveResume(p)
-        //         .subscribe(
-        //             () => this.onSaveComplete(),
-        //             (error: any) => this.errorMessage = <any> error
-        //         )
-        // } else if (!this.productForm.dirty) {
-        //     this.onSaveComplete();
-        // }
+        if(this.resumeForm.dirty && this.resumeForm.valid){
+            let resumeObj = Object.assign({}, this.resume, this.resumeForm.value);
+
+            this.resumeService.saveResume(resumeObj)
+                .subscribe(
+                    () => this.onSaveComplete(),
+                    (error: any) => this.errorMessage = <any> error
+                )
+        } else if (!this.resumeForm.dirty) {
+            this.onSaveComplete();
+        }
     }
 
     onSaveComplete(): void {
