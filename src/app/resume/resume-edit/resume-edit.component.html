@@ -32,7 +32,8 @@
                     <div class="col-md-8">
                         <input class="form-control" 
                                 id="emailId" 
-                                type="text" 
+                                type="email"
+                                email
                                 placeholder="Email (required)"
                                 formControlName="email" />
                         <span class="help-block" *ngIf="displayMessage.email">
@@ -74,7 +75,13 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Upload Resume</label>
                     <div class="col-md-8">
-                        <input type="file" (change)="attachResume($event)" placeholder="Upload file" accept=".pdf,.doc,.docx">
+                        <input type="file"
+                               (change)="attachResume($event)"
+                               placeholder="Upload file"
+                               accept=".pdf,.doc,.docx">
+                        <input type="hidden"
+                               name="fileHidden"
+                               formControlName="pdfInput"/>
                     </div>
                 </div>
 

@@ -1,7 +1,6 @@
-<div class="crop" 
+<div class="crop"
     [style.width.px]="starWidth"
-    [title]="rating"
-    (click)="onClick()">
+    [title]="rating">
     <div style="width: 86px">
         <span class="glyphicon glyphicon-star"></span>
         <span class="glyphicon glyphicon-star"></span>
@@ -9,4 +8,10 @@
         <span class="glyphicon glyphicon-star"></span>
         <span class="glyphicon glyphicon-star"></span>
     </div>
+</div>
+<div>
+    <span class="glyphicon glyphicon-triangle-top"
+              (click)="onUpvote()"></span>
+    <span class="glyphicon glyphicon-triangle-bottom"
+          (click)="onDownvote()"></span>
 </div>

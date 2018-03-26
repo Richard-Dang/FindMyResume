@@ -9,11 +9,6 @@
                 <span class="glyphicon glyphicon-remove" (click)="clearFilter()"></span>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Filter by: {{listFilter}}</h3>
-            </div>
-        </div>
 
         <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
 
@@ -21,10 +16,10 @@
             <table class="table" *ngIf="resumes && resumes.length">
                 <thead>
                     <tr>
-                        <th>
+                        <th style="text-align: center">
                             <button class="btn btn-primary"
-                                    (click)="toggleImage()">
-                                    {{showImage ? 'Hide' : 'Show'}} Preview
+                                    (click)="togglePreview()">
+                                {{showPreview ? 'Hide' : 'Show'}} Preview
                             </button>
                         </th>
                         <th>Author</th>
@@ -37,36 +32,37 @@
                 <tbody>
                     <tr *ngFor="let resume of resumes | resumeFilter:listFilter">
                         <td>
-                            <pdf-viewer *ngIf="showImage"
+                            <pdf-viewer *ngIf="showPreview"
                                         [src]="resume.pdfUrl"
                                         [title]="resume.author"
                                         [show-all]="false"
                                         [page]="1"
                                         [original-size]="false"
                                         [autoresize]="true"
-                                        (click)="openPdf(resume.id)"
-                                        style="display: block; width: 300px; max-width: 300px">
+                                        (click)="openPdf(resume.id)">
                             </pdf-viewer>
                         </td>
-                        <td><a [routerLink]="['/resumes', resume.id]">
-                            {{resume.author}}</a>
+                        <td>{{resume.author}}
                         </td>
                         <td>{{resume.email | convertToSpaces:'-' | lowercase }}</td>
                         <td>{{resume.createdAt | date }}</td>
                         <td>
-                            <span class="label label-primary" style="margin: 5px" *ngFor="let tag of resume.tags" (click)="onTagClicked(tag)">{{tag}}</span>
+                            <div class="label label-primary" style="margin: 5px"
+                                  *ngFor="let tag of resume.tags"
+                                  (click)="onTagClicked(tag)">{{tag}}</div>
                         </td>
                         <td>
                             <app-star [rating]="resume.starRating"
-                            (ratingClicked)="onRatingClicked($event)">
+                            (ratingClicked)="onRatingClicked($event, resume.id)">
                             </app-star>
                         </td>
                         <td>
                             <a class="btn btn-primary"
                             [routerLink]="['/resumeEdit', resume.id]"
-                            style="margin-right:5px;">
+                            style="margin:5px;">
                                 Edit</a>
                             <div class="btn btn-primary"
+                                 style="margin:5px;"
                                  (click)="downloadPdf(resume.id)">
                                 Download
                             </div>

@@ -1,3 +1,15 @@
 thead {
     color: royalblue;
 }
+
+pdf-viewer {
+    display: block;
+    width:300px;
+    max-width: 300px;
+    border: 1px solid black;
+}
+
+pdf-viewer:hover {
+    box-shadow: 10px 10px 5px gray;
+
+}

@@ -60,8 +60,7 @@ public class ResumeController {
         resume.setStarRating(resumeDetails.getStarRating());
         resume.setTags(resumeDetails.getTags());
 
-        Resume updatedResume = resumeRepository.save(resume);
-        return updatedResume;
+        return resumeRepository.save(resume);
     }
 
 

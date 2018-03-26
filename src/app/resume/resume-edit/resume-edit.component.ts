@@ -23,8 +23,6 @@ export class ResumeEditComponent implements OnInit, AfterViewInit, OnDestroy {
     errorMessage: string;
     resumeForm: FormGroup;
     formData: FormData = new FormData();
-
-
     resume: IResume;
     private sub: Subscription;
 
@@ -49,10 +47,14 @@ export class ResumeEditComponent implements OnInit, AfterViewInit, OnDestroy {
                 maxlength: 'Resume name cannot exceed 50 characters.'
             },
             email: {
-                required: 'Email is required.'
+                required: 'Email address is required.',
+                pattern: 'Valid email address is required.'
             },
             starRating: {
                 range: 'Rate the resume between 1 (lowest) and 5 (highest).'
+            },
+            pdfInput: {
+                required: "Resume upload required."
             }
         };
 
@@ -61,13 +63,14 @@ export class ResumeEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit() {
         this.resumeForm = this.fb.group({
-          author: ['', [Validators.required,
+            author: ['', [Validators.required,
                           Validators.minLength(3),
                           Validators.maxLength(50)]],
-          email: ['', Validators.required],
-          starRating: ['', NumberValidator.range(1,5)],
-          tags: this.fb.array([]),
-          description: ''
+            email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+")]],
+            starRating: ['', NumberValidator.range(1,5)],
+            tags: this.fb.array([]),
+            description: '',
+            pdfInput: ['', Validators.required]
         });
 
         this.sub = this.route.params.subscribe(
@@ -149,12 +152,12 @@ export class ResumeEditComponent implements OnInit, AfterViewInit, OnDestroy {
 
     saveResume():void {
         if(this.resumeForm.dirty && this.resumeForm.valid){
-            let resumeObj = Object.assign({}, this.resume, this.resumeForm.value);
-            this.resumeService.saveResume(resumeObj, this.formData)
-                .subscribe(
-                    () => this.onSaveComplete(),
-                    (error: any) => this.errorMessage = <any> error
-                )
+                let resumeObj = Object.assign({}, this.resume, this.resumeForm.value);
+                this.resumeService.saveResume(resumeObj, this.formData)
+                    .subscribe(
+                        () => this.onSaveComplete(),
+                        (error: any) => this.errorMessage = <any> error
+                    )
         } else if (!this.resumeForm.dirty) {
             this.onSaveComplete();
         }
@@ -165,11 +168,11 @@ export class ResumeEditComponent implements OnInit, AfterViewInit, OnDestroy {
         this.router.navigate(['/resumes']);
     }
 
-    //TODO: error trap missing resume
     attachResume(event) {
         let fileList: FileList = event.target.files;
         if (fileList.length > 0) {
             let file: File = fileList[0];
+            this.resumeForm.controls['pdfInput'].setValue(file ? file.name : '');
             this.formData.append('uploadFile', file, file.name);
         }
     }

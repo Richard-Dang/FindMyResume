@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,7 @@ public class Resume implements Serializable {
     private int starRating;
 
     @Lob
+    @NotEmpty
     @Column(length=500000)
     private byte[] file;
 

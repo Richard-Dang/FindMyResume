@@ -9,9 +9,7 @@ import * as FileSaver from "file-saver";
 })
 export class ResumeListComponent implements OnInit{
     pageTitle: string = 'Resumes';
-    imageWidth: number = 50;
-    imageMargin: number = 2;
-    showImage: boolean = true;
+    showPreview: boolean = true;
     listFilter: string;
     errorMessage: string;
     resumes: IResume[];
@@ -19,8 +17,8 @@ export class ResumeListComponent implements OnInit{
     constructor(private resumeService: ResumeService) {
     }
 
-    toggleImage(): void {
-        this.showImage = !this.showImage;
+    togglePreview(): void {
+        this.showPreview = !this.showPreview;
     }
 
     ngOnInit(): void {
@@ -57,8 +55,19 @@ export class ResumeListComponent implements OnInit{
         FileSaver.saveAs(resume.pdfData, `${resume.author}.pdf`);
     }
 
-    onRatingClicked(message: string): void {
-        this.pageTitle = 'Resume List: ' + message;
+    onRatingClicked(increment: number, id: number): void {
+        let resume = this.resumes.find((resume) => {
+            return resume.id === id;
+        });
+
+        let newStarRating = resume.starRating+increment;
+        if(newStarRating < 0){
+            resume.starRating = 0;
+        } else if (newStarRating > 5){
+            resume.starRating = 5;
+        } else{
+            resume.starRating = newStarRating;
+        }
     }
 
     onTagClicked(tag: string): void {
