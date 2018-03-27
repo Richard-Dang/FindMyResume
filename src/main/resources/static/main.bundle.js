@@ -108,7 +108,7 @@ AppModule = __decorate([
 /***/ "../../../../../src/app/home/welcome.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel panel-primary\">\n    <div class=\"panel-heading\">\n        {{pageTitle}}\n    </div>\n    <div class=\"panel-body\"  >\n        <div class=\"row\" >\n            <img src=\"./assets/images/logo.jpg\" \n                 class=\"img-responsive center-block\"\n                 style=\"max-height:300px;padding-bottom:50px\"/>\n        </div>\n        <div class=\"row\"  >\n            <div class=\"text-center\">Developed by:</div>\n            <h3 class=\"text-center\">Richard Dang</h3>\n\n            <div class=\"text-center\">@richard_dang</div>\n            <div class=\"text-center\">\n                <a href=\"richarddang.com\">www.richarddang.com</a>\n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"panel panel-primary\">\n    <div class=\"panel-heading\">\n        {{pageTitle}}\n    </div>\n    <div class=\"panel-body\"  >\n        <div class=\"row\" >\n            <img src=\"./assets/images/logo.jpg\" \n                 class=\"img-responsive center-block\"\n                 style=\"max-height:300px;padding-bottom:50px\"/>\n        </div>\n        <div class=\"row\"  >\n            <div class=\"text-center\">Developed by:</div>\n            <h3 class=\"text-center\">Richard Dang</h3>\n\n            <div class=\"text-center\">@richard_dang</div>\n            <div class=\"text-center\">\n                <a href=\"http://richarddang.com\" target=\"_blank\">www.richarddang.com</a>\n            </div>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -582,6 +582,7 @@ var ResumeListComponent = (function () {
         this.pageTitle = 'Resumes';
         this.showPreview = true;
     }
+    //TODO: add disable adblock message
     ResumeListComponent.prototype.togglePreview = function () {
         this.showPreview = !this.showPreview;
     };
