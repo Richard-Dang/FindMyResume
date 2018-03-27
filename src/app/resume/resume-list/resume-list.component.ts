@@ -17,6 +17,7 @@ export class ResumeListComponent implements OnInit{
     constructor(private resumeService: ResumeService) {
     }
 
+    //TODO: add disable adblock message
     togglePreview(): void {
         this.showPreview = !this.showPreview;
     }
