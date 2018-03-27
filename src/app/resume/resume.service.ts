@@ -11,7 +11,7 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class ResumeService {
-    private resumeUrl = 'http://localhost:8080/api/resumes/';
+    private resumeUrl = '/api/resumes/';
 
     constructor(private http: HttpClient){
     }

@@ -4,8 +4,8 @@ thead {
 
 pdf-viewer {
     display: block;
-    width:300px;
-    max-width: 300px;
+    width:200px;
+    max-width: 200px;
     border: 1px solid black;
 }
 

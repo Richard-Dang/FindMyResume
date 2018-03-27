@@ -35,6 +35,7 @@
                             <pdf-viewer *ngIf="showPreview"
                                         [src]="resume.pdfUrl"
                                         [title]="resume.author"
+                                        [render-text]="false"
                                         [show-all]="false"
                                         [page]="1"
                                         [original-size]="false"
