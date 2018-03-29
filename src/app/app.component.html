@@ -1,11 +1,12 @@
 <div>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <a class="navbar-brand">{{pageTitle}}</a>
+            <a class="navbar-brand">
+                <img alt="brand" style="height:100%;display:inline-block" src="assets/images/favicon.png">
+                {{pageTitle}}</a>
             <ul class="nav navbar-nav">
                 <li><a [routerLink]="['/welcome']">Home</a></li>
                 <li><a [routerLink]="['/resumes']">Resume Library</a></li>
-                <li><a [routerLink]="['/resumeEdit/0']">New Resume</a></li>
             </ul>
         </div>
     </nav>

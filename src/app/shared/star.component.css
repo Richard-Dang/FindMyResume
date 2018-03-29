@@ -4,3 +4,13 @@
 div {
     cursor: pointer;
 }
+
+.shift-left {
+    float: left;
+    width: 75%;
+}
+
+.shift-right {
+    float: left;
+    width: 25%;
+}

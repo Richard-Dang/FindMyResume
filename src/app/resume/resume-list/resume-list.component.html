@@ -1,10 +1,16 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         {{pageTitle}}
+        <div class="btn-group pull-right">
+            <a class="btn btn-default"
+               [routerLink]="['/resumeEdit/0']"
+                style="margin:4px">
+                Add Resume</a>
+        </div>
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-6">Filter by:
+            <div class="col-md-6" style="margin:15px;">Filter by:
                 <input type="text" [(ngModel)]="listFilter"/>
                 <span class="glyphicon glyphicon-remove" (click)="clearFilter()"></span>
             </div>
@@ -26,7 +32,7 @@
                         <th>Email</th>
                         <th>Date Added</th>
                         <th>Tags</th>
-                        <th>5 Star Rating</th>
+                        <th style="width:150px">5 Star Rating</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +46,10 @@
                                         [page]="1"
                                         [original-size]="false"
                                         [autoresize]="true"
-                                        (click)="openPdf(resume.id)">
+                                        [zoom]="0.99"
+                                        (click)="openPdf(resume.id)"
+                                        (page-rendered)="pageRendered($event)"
+                                        [ngClass]="{'pdf-border pdf-viewer:hover': pdfsRendered}">
                             </pdf-viewer>
                         </td>
                         <td>{{resume.author}}

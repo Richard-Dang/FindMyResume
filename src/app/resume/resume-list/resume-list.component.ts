@@ -13,6 +13,7 @@ export class ResumeListComponent implements OnInit{
     listFilter: string;
     errorMessage: string;
     resumes: IResume[];
+    pdfsRendered: boolean = false;
 
     constructor(private resumeService: ResumeService) {
     }
@@ -40,6 +41,10 @@ export class ResumeListComponent implements OnInit{
 
 
                 }, error => this.errorMessage = <any>error);
+    }
+
+    pageRendered(event: CustomEvent) {
+        this.pdfsRendered = true;
     }
 
     openPdf(id: number): void {

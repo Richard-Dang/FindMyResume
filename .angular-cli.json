@@ -21,7 +21,7 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.css"
+        "main/resources/bootstrap/css/bootstrap-paper.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
