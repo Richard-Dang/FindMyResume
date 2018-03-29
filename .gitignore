@@ -40,3 +40,5 @@ bower_components
 bin
 obj
 packages
+
+src/main/resources/static
