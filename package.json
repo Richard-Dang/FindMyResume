@@ -10,7 +10,6 @@
     "lint": "ng lint --type-check",
     "e2e": "ng e2e",
     "postinstall": "ng build --aot -prod",
-    "heroku-postbuild": "cd ANGULAR_APP_FOLDER && npm install",
     "deploy": "git push origin master && git push heroku master"
   },
   "private": true,
