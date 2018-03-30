@@ -39,7 +39,6 @@ export class ResumeEditComponent implements OnInit, AfterViewInit, OnDestroy {
                 private router: Router,
                 private resumeService: ResumeService) {
 
-        //TODO: add validation for email format
         this.validationMessages = {
             author: {
                 required: 'Resume name is required.',

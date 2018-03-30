@@ -66,7 +66,6 @@ public class ResumeController {
 
 
     // Delete a Note
-    //TODO: Change to soft delete
     @DeleteMapping("/resumes/{id}")
     public ResponseEntity<?> deleteResume(@PathVariable(value = "id") Long resumeId) {
         Resume resume = resumeRepository.findById(resumeId)
