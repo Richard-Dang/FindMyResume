@@ -4,6 +4,7 @@ import com.example.resumelibrary.exception.ResourceNotFoundException;
 import com.example.resumelibrary.model.Resume;
 import com.example.resumelibrary.repository.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -73,6 +74,6 @@ public class ResumeController {
 
         resumeRepository.delete(resume);
 
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

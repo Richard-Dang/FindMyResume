@@ -32,7 +32,7 @@ export class ResumeService {
     }
 
     deleteResume(id: number): Observable<IResume> {
-        return this.http.delete(this.resumeUrl + id)
+        return this.http.delete(this.resumeUrl + id, { responseType: 'text' })
             .do(data => this.httpLog(`deleteResume(${id})`, data))
             .catch(this.handleError);
     }
@@ -63,11 +63,11 @@ export class ResumeService {
     }
 
     private httpLog(title: string, data: any){
-        let printObj = {
-            length: data.length
-        };
-        printObj[title] = data;
-        console.log(printObj);
+        if(data){
+            let logObj = {};
+            logObj[title] = data;
+            console.log(logObj);
+        }
     }
 
     private handleError(err: HttpErrorResponse){
