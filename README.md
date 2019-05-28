@@ -1,6 +1,6 @@
 # Find My Resume 
 
-## Link: [www.findmyresu.me](http://www.findmyresu.me/)
+## Link: [www.findmyresume.herokuapp.com](https://findmyresume.herokuapp.com/)
 
 ## Description
 
